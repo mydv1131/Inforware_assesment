@@ -1,6 +1,12 @@
-# Multi-Tenant Retrieval-Augmented Generation (RAG) System
+Multi-Tenant Retrieval-Augmented Generation (RAG) System
+
 
 This is a production-grade Multi-Tenant RAG system built using **Node.js, TypeScript, Express, and PostgreSQL (`pgvector`)**. It allows multiple organizations (tenants) to upload documents (PDFs, plain text, Markdown), split them into chunks, generate vector embeddings, and semantic-query their private knowledge base under strict tenant isolation boundaries and safety guardrails.
+
+The system follows a layered service architecture with strict separation of concerns. The API layer handles HTTP routing and request validation. The middleware layer enforces tenant isolation before any business logic executes. The RAG engine layer manages the full document pipeline — extraction, chunking, embedding, and vector storage. The services layer abstracts all PostgreSQL operations.
+
+Multi-tenant isolation is enforced at three independent layers:
+Routing middleware (API key + tenant ID match), SQL query scoping (WHERE tenant_id = $2 on every vector operation), and in-memory post-retrieval validation. This defense-in-depth approach ensures cross-tenant leakage is impossible even if one layer is bypassed
 
 ---
 
