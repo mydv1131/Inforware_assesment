@@ -294,3 +294,17 @@ npm test
     "guardrailReason": "No source documents returned."
   }
   ```
+  ## Known Limitations & Future Improvements
+- JWT authentication layer for user-level RBAC within tenants
+- Redis caching for repeated embedding queries
+- Streaming LLM responses via Server-Sent Events
+- Hybrid search (BM25 + vector) for improved retrieval accuracy
+
+## Test Results
+npm test runs Jest integration tests covering:
+✅ Tenant onboarding and API key generation
+✅ Document upload (PDF multipart + raw JSON)
+✅ Strict tenant isolation — 403 on cross-tenant access
+✅ Guardrail triggering — prompt injection blocked
+✅ Low-confidence fallback responses
+✅ Cascade deletion of vectors on document delete
